@@ -10,7 +10,7 @@ export const validateClient = (request, response, next) => {
     phone: Body.value.phone,
   }
 
-  response.locals.newUser = newClient
+  response.locals.newClient = newClient
   next()
   return true
 }

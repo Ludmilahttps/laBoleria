@@ -15,4 +15,5 @@ const connection = new Pool(databaseConfig)
 
 export { connection }
 export * as clientSchema from "./clientSchema.js"
+export * as cakeSchema from "./cakeSchema.js"
 export * as queries from "../queries/index.js"

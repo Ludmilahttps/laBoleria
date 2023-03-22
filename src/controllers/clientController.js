@@ -4,17 +4,15 @@ import { clientSchema } from "../schemas/index.js"
 dotenv.config()
 
 export const newClient = async (request, response) => {
-  const { name, address, phone } = response.locals.newUser
+  const { name, address, phone } = response.locals.newClient
   const user = {
     name,
     address,
     phone,
   }
-  
+
   try {
-    console.log("here")
     await clientSchema.insertClient(user)
-    console.log("here")
     console.log(user)
     return response.status(201).send("Customer registered!")
   } catch (error) {
