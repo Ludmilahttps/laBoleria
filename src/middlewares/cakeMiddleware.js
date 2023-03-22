@@ -1,5 +1,14 @@
 import { cakeSchema } from "../schemas/index.js"
 
+export const checkNameCake = async (request, response, next) => {
+  const { name } = response.locals.newCake
+
+  const nameExists = await cakeSchema.nameExists(name)
+  if (nameExists) return response.status(409).send("Conflict")
+  next()
+  return true
+}
+
 export const validateCake = (request, response, next) => {
   const Body = cakeSchema.cakeSchema.validate(request.body)
   

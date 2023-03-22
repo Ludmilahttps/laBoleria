@@ -7,3 +7,15 @@ export const insertCake = () => {
       `
     return query
   }
+
+  export const getNamebyName = () => {
+    const query = `--sql
+      SELECT
+          name
+      FROM
+          cakes
+      WHERE
+          name = $1;             
+  `
+    return query
+  }

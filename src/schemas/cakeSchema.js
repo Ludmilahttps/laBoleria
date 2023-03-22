@@ -2,6 +2,14 @@ import joi from "joi"
 import { connection } from "./index.js"
 import { querieCake } from "../queries/index.js"
 
+export const nameExists = async (name) => {
+  const { rows: cakes } = await connection.query(querieCake.getNamebyName(), [
+    name,
+  ])
+  if (cakes && cakes.length !== 0) return true
+  return false
+}
+
 export const insertCake = async (cake) => {
   const { name, price, image, description } = cake
   try {

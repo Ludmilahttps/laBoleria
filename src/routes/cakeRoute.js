@@ -7,6 +7,7 @@ const cakeRoute = Router()
 cakeRoute.post(
   "/cakes",
   cakeMiddleware.validateCake,
+  cakeMiddleware.checkNameCake,
   cakeController.newCake
 )
 
