@@ -10,4 +10,10 @@ clientRoute.post(
   clientController.newClient
 )
 
+clientRoute.get(
+  "/clients/:id/orders",
+  clientMiddleware.validateClient,
+  clientController.newClient
+)
+
 export { clientRoute }
