@@ -56,36 +56,23 @@ export const showOrder = async (req, res) => {
   }
 }
 
-export async function getOrderbyId(req, res){
+export async function getOrderbyId(req, res) {
   const { id } = req.params
-  try{
-      const order = orderSchema.selectOrdersId(id)
-      const client = orderSchema.selectClient(order)
-      const cake = orderSchema.selectCake(order)
-      const orders = {
-          client: {
-              id: client.rows[0].id,
-              name: client.rows[0].name,
-              address: client.rows[0].address,
-              phone: client.rows[0].phone,
-          },
-          cake: {
-              id: cake.rows[0].id,
-              name: cake.rows[0].name,
-              price: cake.rows[0].price,
-              description: cake.rows[0].description,
-              image: cake.rows[0].image,
-          },
-          order: order.rows[0].id,
-          createdAt: order.rows[0].createdAt,
-          quantity: order.rows[0].quantity,
-          totalPrice: order.rows[0].totalPrice
-      }
+  try {
+    console.log("here")
+    const { rows: order }= await orderSchema.selectOrdersId(id)
+    const { rows: client }= await orderSchema.selectClient(id)
+    const { rows: cake} = await orderSchema.selectCake(id)
+    console.log(order)
+    const orders = {
+      client: client,
+      cake: cake,
+      order: order
+    }
+    return res.status(200).send(orders)
 
-  return res.status(200).send(orders)
-
-  }catch (err) {
-      console.log(err)
-      return res.sendStatus(500)
+  } catch (err) {
+    console.log(err)
+    return res.sendStatus(500)
   }
 }

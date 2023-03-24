@@ -4,7 +4,6 @@ import { connection } from "./index.js"
 import { querieOrder } from "../queries/index.js"
 
 const joiDate = joi.extend(date)
-let aux = []
 
 export const insertOrder = async (order) => {
   const { clientId, cakeId, quantity, totalPrice, createdAt } = order
@@ -25,7 +24,7 @@ export const showOrder = async => {
 
 export const selectOrdersId = async (id)=> {
   try {
-    return aux = connection.query(querieOrder.showOrdersbyId(), [id])
+    return connection.query(querieOrder.showOrdersbyId(id))
   } catch (error) {
     console.log(error)
   }
@@ -33,7 +32,7 @@ export const selectOrdersId = async (id)=> {
 
 export const selectClient = async (id)=> {
   try {
-    return aux = connection.query(querieOrder.selectClient(), [id])
+    return connection.query(querieOrder.selectClient(id))
   } catch (error) {
     console.log(error)
   }
@@ -41,7 +40,7 @@ export const selectClient = async (id)=> {
 
 export const selectCake = async (id)=> {
   try {
-    return aux = connection.query(querieOrder.selectCake(), [id])
+    return connection.query(querieOrder.selectCake(id))
   } catch (error) {
     console.log(error)
   }

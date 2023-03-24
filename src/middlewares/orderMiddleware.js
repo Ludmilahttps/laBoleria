@@ -32,7 +32,7 @@ export const getOrder = async (request, response, next) => {
     if (validatition.error) {
       return res.sendStatus(error)
     }
-    
+
     next()
 
   } catch (error) {
@@ -45,11 +45,12 @@ export const getOrdersbyId = async (req, res, next) => {
   const { id } = req.params
 
   try {
-      const isValid = await connection.query(`SELECT * FROM orders WHERE id_order = $1`, [id])
-      if(isValid.rows.length === 0) {
-          return res.status(404).send("Order id not found")
+      const order = await connection.query(`SELECT * FROM orders WHERE id_order = ${id}`)
+      const cake = await connection.query(`SELECT * FROM cakes WHERE id_cake = ${id}`)
+      const client = await connection.query(`SELECT * FROM clients WHERE id_client = ${id}`)
+      if(order.rows.length === 0 && cake.rows.length === 0 && client.rows.length === 0 ) {
+          return res.status(404).send("Id not found")
       }
-
       next()
 
   } catch(err) {

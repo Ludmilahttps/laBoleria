@@ -21,23 +21,23 @@ export const showOrders = () => {
   return query
 }
 
-export const showOrdersbyId = () => {
+export const showOrdersbyId = id => {
   const query = `--sql
-      SELECT * FROM orders WHERE id_order = $1
+      SELECT * FROM orders WHERE id_order = ${id}
     `
   return query
 }
 
-export const selectClient = () => {
+export const selectClient = id => {
   const query = `--sql
-      SELECT * FROM clients WHERE id_client = $1
+      SELECT * FROM clients WHERE id_client = ${id}
     `
   return query
 }
 
-export const selectCake = () => {
+export const selectCake = id => {
   const query = `--sql
-      SELECT * FROM cakes WHERE id_cake = $1
+      SELECT * FROM cakes WHERE id_cake = ${id}
     `
   return query
 }
