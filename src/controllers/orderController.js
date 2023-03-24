@@ -1,4 +1,5 @@
 import dotenv from "dotenv"
+import { request, response } from "express"
 import { orderSchema } from "../schemas/index.js"
 
 dotenv.config()
@@ -22,10 +23,10 @@ export const newOrder = async (request, response) => {
   }
 }
 
-export const showOrder = async (req, res) => {
+export const showOrder = async (request, response) => {
   try {
     const { rows: orders } = await orderSchema.showOrder()
-    if (orders.length === 0) return res.sendStatus(404)
+    if (orders.length === 0) return response.sendStatus(404)
 
     const allOrders = orders.map((element) => {
       const order = {
@@ -49,15 +50,15 @@ export const showOrder = async (req, res) => {
       }
       return order
     })
-    res.status(200).send(allOrders)
-  } catch (err) {
-    console.log(err)
-    return res.sendStatus(500)
+    response.status(200).send(allOrders)
+  } catch (error) {
+    console.log(error)
+    return response.sendStatus(error)
   }
 }
 
-export async function getOrderbyId(req, res) {
-  const { id } = req.params
+export async function getOrderbyId(request, response) {
+  const { id } = request.params
   try {
     console.log("here")
     const { rows: order }= await orderSchema.selectOrdersId(id)
@@ -69,10 +70,10 @@ export async function getOrderbyId(req, res) {
       cake: cake,
       order: order
     }
-    return res.status(200).send(orders)
+    return response.status(200).send(orders)
 
-  } catch (err) {
-    console.log(err)
-    return res.sendStatus(500)
+  } catch (error) {
+    console.log(error)
+    return response.sendStatus(error)
   }
 }

@@ -20,15 +20,15 @@ export const newClient = async (request, response) => {
   }
 }
 
-export async function getClientsOrders(req, res) {
-  const {id} = req.params
+export async function getClientsOrders(request, response) {
+  const {id} = request.params
 
   try {
   const ordersByClient = await clientSchema.getOrdersByClientId(Number(id))
-  res.send(ordersByClient.rows)
+  response.send(ordersByClient.rows)
   
-  } catch (err) {
-      console.log(err)
-      res.sendStatus(500)
+  } catch (error) {
+      console.log(error)
+      response.sendStatus(error)
   }
 }

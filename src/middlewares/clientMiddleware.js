@@ -1,3 +1,4 @@
+import { request, response } from "express"
 import { clientSchema } from "../schemas/index.js"
 import { connection } from "../schemas/index.js"
 
@@ -16,22 +17,22 @@ export const validateClient = (request, response, next) => {
   return true
 }
 
-export const getOrdersById = async (req, res, next) => {
-  const { id } = req.params
+export const getOrdersById = async (request, response, next) => {
+  const { id } = request.params
   try {
     const { rows: clients } = await connection.query(`SELECT * FROM clients WHERE id_client = ${id}`)
     if (clients.length === 0) {
-      return res.status(404).send("Client id not found")
+      return response.status(404).send("Client id not found")
     }
 
     const { rows: orders } = await connection.query(`SELECT * FROM orders WHERE "clientId" = ${id}`)
     if (orders.length === 0) {
-      return res.status(404).send("O usuário não fez nenhum pedido")
+      return response.status(404).send("O usuário não fez nenhum pedido")
     }
     
     next()
 
-  } catch (err) {
-    return res.status(500).send(err.message)
+  } catch (error) {
+    return response.sendStatus(error)
   }
 }
