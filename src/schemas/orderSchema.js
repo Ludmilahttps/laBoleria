@@ -16,7 +16,7 @@ export const insertOrder = async (order) => {
 
 export const showOrder = async => {
   try {
-    connection.query(querieOrder.showOrders())
+    return connection.query(querieOrder.showOrders())
   } catch (error) {
     console.log(error)
   }

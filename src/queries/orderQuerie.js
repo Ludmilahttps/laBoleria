@@ -11,12 +11,12 @@ export const insertOrder = () => {
 
 export const showOrders = () => {
   const query = `--sql
-      SELECT orders.id AS "ordersId", orders."createdAt", orders.quantity, orders."totalPrice",
-      cakes.id AS "cakeId", cakes.name AS "cakes", cakes.price, cakes.description, cakes.image,
-      clients.id AS "clientId", clients.name AS "clientName", clients.address, clients.phone 
+      SELECT orders.id_order AS "ordersId", orders."createdAt", orders.quantity, orders."totalPrice",
+      cakes.id_cake AS "cakeId", cakes.name AS "cakes", cakes.price, cakes.description, cakes.image,
+      clients.id_client AS "clientId", clients.name AS "clientName", clients.address, clients.phone 
       FROM orders
-      JOIN clients ON "clientId" = clients.id
-      JOIN cakes ON "cakeId" = cakes.id
+      JOIN clients ON "clientId" = clients.id_client
+      JOIN cakes ON "cakeId" = cakes.id_cake
   `
   return query
 }
