@@ -24,16 +24,15 @@ export const getOrder = async (request, response, next) => {
 
   try {
     const isEmpty = await connection.query(`SELECT * FROM orders`)
-
     if (isEmpty.rows.length === 0) {
       return response.sendStatus(404)
     }
 
     const validatition = orderSchema.orderSchemaDate.validate({ date })
     if (validatition.error) {
-      return res.sendStatus(404)
+      return res.sendStatus(error)
     }
-
+    
     next()
 
   } catch (error) {

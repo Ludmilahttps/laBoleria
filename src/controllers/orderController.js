@@ -24,10 +24,10 @@ export const newOrder = async (request, response) => {
 
 export const showOrder = async (req, res) => {
   try {
-    const orders = orderSchema.showOrder()
-    if (typeof orders[1] === "undefined") return res.sendStatus(404)
+    const { rows: orders } = await orderSchema.showOrder()
+    if (orders.length === 0) return res.sendStatus(404)
 
-    const allOrders = orders.rows.map((element) => {
+    const allOrders = orders.map((element) => {
       const order = {
         client: {
           id: element.clientId,
