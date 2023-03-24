@@ -12,8 +12,8 @@ clientRoute.post(
 
 clientRoute.get(
   "/clients/:id/orders",
-  clientMiddleware.validateClient,
-  clientController.newClient
+  clientMiddleware.getOrdersById,
+  clientController.getClientsOrders
 )
 
 export { clientRoute }

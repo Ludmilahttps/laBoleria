@@ -19,3 +19,16 @@ export const newClient = async (request, response) => {
     return response.status(500).send(`Internal system error.`)
   }
 }
+
+export async function getClientsOrders(req, res) {
+  const {id} = req.params
+
+  try {
+  const ordersByClient = await clientSchema.getOrdersByClientId(id)
+  res.send(ordersByClient.rows)
+  
+  } catch (err) {
+      console.log(err)
+      res.sendStatus(500)
+  }
+}
