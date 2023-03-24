@@ -24,7 +24,7 @@ export async function getClientsOrders(req, res) {
   const {id} = req.params
 
   try {
-  const ordersByClient = await clientSchema.getOrdersByClientId(id)
+  const ordersByClient = await clientSchema.getOrdersByClientId(Number(id))
   res.send(ordersByClient.rows)
   
   } catch (err) {

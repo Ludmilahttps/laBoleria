@@ -9,18 +9,10 @@
     return query
   }
 
-  export const getClientsById = () => {
+  export const getOrdersByClientId = id => {
     
     const query = `--sql
-        SELECT * FROM clients WHERE id_client = $1      
-      `
-    return query
-  }
-
-  export const getOrdersByClientId = () => {
-    
-    const query = `--sql
-        SELECT * FROM orders WHERE "clientId" = $1      
+        SELECT * FROM orders WHERE "clientId" = ${id}   
       `
     return query
   }

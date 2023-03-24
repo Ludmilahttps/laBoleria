@@ -19,16 +19,16 @@ export const validateClient = (request, response, next) => {
 export const getOrdersById = async (req, res, next) => {
   const { id } = req.params
   try {
-    const { rows: clients } = await connection.query(`SELECT * FROM clients WHERE id_client = $1`, [id])
+    const { rows: clients } = await connection.query(`SELECT * FROM clients WHERE id_client = ${id}`)
     if (clients.length === 0) {
       return res.status(404).send("Client id not found")
     }
 
-    const { rows: orders } = await clientSchema.getOrdersByClientId(id)
+    const { rows: orders } = await connection.query(`SELECT * FROM orders WHERE "clientId" = ${id}`)
     if (orders.length === 0) {
       return res.status(404).send("O usuário não fez nenhum pedido")
     }
-
+    
     next()
 
   } catch (err) {

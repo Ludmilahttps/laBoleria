@@ -13,17 +13,9 @@ export const insertClient = async (user) => {
   }
 }
 
-export const getClientsById = async (id) => {
-  try {
-    return connection.query(querieClient.getClientsById(), id)
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 export const getOrdersByClientId = async (id) => {
   try {
-    return connection.query(querieClient.getOrdersByClientId(), id)
+    return connection.query(querieClient.getOrdersByClientId(id))
   } catch (error) {
     console.log(error)
   }
