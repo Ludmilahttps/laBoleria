@@ -20,3 +20,24 @@ export const showOrders = () => {
   `
   return query
 }
+
+export const showOrdersbyId = () => {
+  const query = `--sql
+      SELECT * FROM orders WHERE id_order = $1
+    `
+  return query
+}
+
+export const selectClient = () => {
+  const query = `--sql
+      SELECT * FROM clients WHERE id_client = $1
+    `
+  return query
+}
+
+export const selectCake = () => {
+  const query = `--sql
+      SELECT * FROM cakes WHERE id_cake = $1
+    `
+  return query
+}

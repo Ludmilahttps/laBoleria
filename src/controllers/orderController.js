@@ -27,7 +27,7 @@ export const showOrder = async (req, res) => {
     const orders = orderSchema.showOrder()
     if (typeof orders[1] === "undefined") return res.sendStatus(404)
 
-    const allCompleteOrders = orders.rows.map((element) => {
+    const allOrders = orders.rows.map((element) => {
       const order = {
         client: {
           id: element.clientId,
@@ -49,11 +49,43 @@ export const showOrder = async (req, res) => {
       }
       return order
     })
-
-    res.status(200).send(allCompleteOrders)
-
+    res.status(200).send(allOrders)
   } catch (err) {
     console.log(err)
     return res.sendStatus(500)
+  }
+}
+
+export async function getOrderbyId(req, res){
+  const { id } = req.params
+  try{
+      const order = orderSchema.selectOrdersId(id)
+      const client = orderSchema.selectClient(order)
+      const cake = orderSchema.selectCake(order)
+      const orders = {
+          client: {
+              id: client.rows[0].id,
+              name: client.rows[0].name,
+              address: client.rows[0].address,
+              phone: client.rows[0].phone,
+          },
+          cake: {
+              id: cake.rows[0].id,
+              name: cake.rows[0].name,
+              price: cake.rows[0].price,
+              description: cake.rows[0].description,
+              image: cake.rows[0].image,
+          },
+          order: order.rows[0].id,
+          createdAt: order.rows[0].createdAt,
+          quantity: order.rows[0].quantity,
+          totalPrice: order.rows[0].totalPrice
+      }
+
+  return res.status(200).send(orders)
+
+  }catch (err) {
+      console.log(err)
+      return res.sendStatus(500)
   }
 }

@@ -18,6 +18,6 @@ orderRoute.get(
 
 orderRoute.get(
   "/orders/:id",
-  orderMiddleware.validateOrder,
-  orderController.newOrder
+  orderMiddleware.getOrdersbyId,
+  orderController.getOrderbyId
 )

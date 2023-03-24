@@ -41,3 +41,19 @@ export const getOrder = async (request, response, next) => {
     return response.status(500).send(error.message)
   }
 }
+
+export const getOrdersbyId = async (req, res, next) => {
+  const { id } = req.params
+
+  try {
+      const isValid = await connection.query(`SELECT * FROM orders WHERE id_order = $1`, [id])
+      if(isValid.rows.length === 0) {
+          return res.status(404).send("Order id not found")
+      }
+
+      next()
+
+  } catch(err) {
+      return res.status(500).send(err.message)
+  }
+}
